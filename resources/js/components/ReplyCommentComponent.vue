@@ -3,8 +3,7 @@
         <div v-show="replyOnComment">
 
         <form @submit.prevent="sendReply()" id="replayForm">
-<!--            <button type="button" class="btn-close float-right  btn-sm" aria-label="Close"-->
-<!--                    @click="closeReply()"></button>-->
+
 
             <div class="mb-3">
                 <label class="form-label">Name</label>
