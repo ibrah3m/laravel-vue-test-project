@@ -19,6 +19,12 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::post('/Comments/add', [CommentsController::class,'create']);
-Route::post('/Comments/add-reply', [CommentsController::class,'addReply']);
-Route::get('/Comments/show', [CommentsController::class,'show']);
+//here we made an api to use it inside the vue component in order to get/set the new comments without  refresh
+Route::prefix('Comments')->group(function () {
+
+    Route::controller(CommentsController::class)->group(function () {
+        Route::post('/add', 'create');
+        Route::post('/add-reply', 'addReply');
+        Route::get('/show', 'show');
+    });
+});

@@ -16,6 +16,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+
+//this route made to return  fake blog template and contains the comments box
 Route::get('/blog', function () {
     return view('blog');
 });
