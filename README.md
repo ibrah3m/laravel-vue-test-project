@@ -125,6 +125,12 @@ Route::prefix('Comments')->group(function () {
 
 <script>
 export default {
+  //we use 'provide'  in order to make sure that all child /grandchild components can reach the 'getComment' method 
+    provide: function () {
+        return {
+            getComment: this.getComment
+        }
+    },
     methods: {
         //this method gets the comments from our backend using the api route
         getComment() {
