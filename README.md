@@ -150,6 +150,104 @@ export default {
 
 
   ```
+2.NewCommentComponent
+```vue
+<template>
+    <div  style="background-color: #626262;">
+        <form @submit.prevent="sendComment()" id="CommentForm">
+            ..........
+        </form>
+    </div>
+</template>
+<script>
+export default {
+        props:{
+        comments:{}
+    },
+    methods: {
+// we assign new comment using 'sendComment' 
+        sendComment(){
+            let comment = { name: this.CommentUserName ,comment: this.CommentUserText};
+            axios.post('/api/Comments/add', comment)
+                .then(this.$parent.getComment());
+            this.CommentUserName=''
+            this.CommentUserText=''
+        }
+    }
+}
+</script>
+```
+4. ReplyCommentComponent
+```vue
+<template>
+    <div>
+        <slot :on-reply="onReply"></slot>
+        <div v-show="replyOnComment">
+            <form @submit.prevent="sendReply()" id="replayForm">
+            </form>
+        </div>
+    </div>
+</template>
+<script>
 
 
+export default {
+//here we import 'getcomment' method from the parent component    
+    inject: ['getComment'],
 
+    methods: {
+//this an boolean method to show and hide the reply box 
+        onReply() {
+            if (this.replyOnComment) {
+                this.replyOnComment = false;
+
+            } else {
+                this.replyOnComment = true;
+
+            }
+        },
+//this method triggered when the form submitted to post the fields 
+        sendReply() {
+
+            let reply = {name: this.ReplyUserName, comment: this.ReplyCommentText, comment_id: this.sub_comment.id};
+            axios.post('/api/Comments/add-reply', reply)
+                .then(this.getComment);
+            this.ReplyUserName = '';
+            this.ReplyCommentText = '';
+            this.onReply();
+        },
+    }
+}
+</script>
+
+
+```
+4.NestedCommentComponent
+```vue
+//this component responsible to print all nested comments until third level 
+<template>
+    <div>
+        ..........
+        
+        <div class="pl-4" v-if="nested_level <= 3" v-for="nested in reply.comment_replys" :key="nested.id">
+            <nested-comment-component :nested_level="nested_level + 1" :reply="nested"></nested-comment-component>
+            <br>
+
+        </div>
+    </div>
+</template>
+<script>
+export default {
+    data() {
+        return {
+        }
+    },
+    props: {
+        reply: {},
+        nested_level:0,
+
+    },
+}
+</script>
+
+```
