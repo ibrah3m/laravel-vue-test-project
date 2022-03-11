@@ -15,10 +15,9 @@
                             {{ reply.comment_text }}
 
                         </p>
-                        <reply-comment-component :sub_comment="reply" v-slot="{ onReply }">
-                            <a href="#!" class="float-right  card-link"><span class="small" @click="onReply">reply</span></a>
-                        </reply-comment-component>
-                        <br>
+                        <reply-comment-component v-if="nested_level <= 2" :sub_comment="reply" v-slot="{ onReply }">
+                            <a href="#!" class="float-right m-2 card-link"><span class="small" @click="onReply">reply</span></a>
+                        </reply-comment-component>                        <br>
                     </div>
                 </div>
 
@@ -27,9 +26,9 @@
 
         </div>
 
-        <div class="pl-4" v-for="nested in reply.comment_replys" :key="nested.id">
+        <div class="pl-4" v-if="nested_level <= 3" v-for="nested in reply.comment_replys" :key="nested.id">
 
-            <nested-comment-component :reply="nested"></nested-comment-component>
+            <nested-comment-component :nested_level="nested_level + 1" :reply="nested"></nested-comment-component>
             <br>
 
         </div>
@@ -39,12 +38,17 @@
 <script>
 export default {
     data() {
-        return {}
+        return {
+        }
     },
     props: {
-        reply: {}
+        reply: {},
+        nested_level:0,
+
     },
-    methods: {}
+    methods: {
+
+    }
 }
 
 

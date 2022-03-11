@@ -1,25 +1,27 @@
 <template>
-    <div><slot :on-reply="onReply"></slot>
+    <div>
+        <slot :on-reply="onReply"></slot>
         <div v-show="replyOnComment">
 
-        <form @submit.prevent="sendReply()" id="replayForm">
+            <form @submit.prevent="sendReply()" id="replayForm">
 
 
-            <div class="mb-3">
-                <label class="form-label">Name</label>
-                <input type="text" class="form-control" v-model="ReplyUserName">
-            </div>
-            <div class="mb-3">
-                <label class="form-label">Comment</label>
-                <textarea class="form-control" v-model="ReplyCommentText" rows="3"></textarea>
-            </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
+                <div class="mb-3">
+                    <label class="form-label">Name</label>
+                    <input type="text" class="form-control" v-model="ReplyUserName">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Comment</label>
+                    <textarea class="form-control" v-model="ReplyCommentText" rows="3"></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
 
-        </form>
-    </div>
+            </form>
+        </div>
     </div>
 </template>
 <script>
+
 
 export default {
 
@@ -32,15 +34,17 @@ export default {
         }
     },
     props: {
-        sub_comment: {}
+        sub_comment: {},
+
     },
+    inject: ['getComment'],
 
     methods: {
         onReply() {
-            if (this.replyOnComment){
+            if (this.replyOnComment) {
                 this.replyOnComment = false;
 
-            }else{
+            } else {
                 this.replyOnComment = true;
 
             }
@@ -49,7 +53,7 @@ export default {
 
             let reply = {name: this.ReplyUserName, comment: this.ReplyCommentText, comment_id: this.sub_comment.id};
             axios.post('/api/Comments/add-reply', reply)
-                .then(this.$emit('getComment'));
+                .then(this.getComment);
             this.ReplyUserName = '';
             this.ReplyCommentText = '';
             this.onReply();

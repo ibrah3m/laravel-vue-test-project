@@ -15,17 +15,15 @@
                     </p>
 
 
-                    <reply-comment-component @getComment="getComment" :sub_comment="comment" v-slot="{ onReply }">
+                    <reply-comment-component  :sub_comment="comment" v-slot="{ onReply }">
                         <a href="#!" class="float-right m-2 card-link"><span class="small" @click="onReply">reply</span></a>
-
-
                     </reply-comment-component>
                     <br>
-
-
                     <div v-for="reply in comment.comment_replys" :key="reply.id">
 
-                        <nested-comment-component :reply="reply"></nested-comment-component>
+                        <nested-comment-component :nested_level="1" :reply="reply">
+
+                        </nested-comment-component>
                         <br>
 
                     </div>
@@ -41,11 +39,17 @@
 </template>
 
 <script>
+
 export default {
 
     data() {
         return {
             comments: {},
+        }
+    },
+    provide: function () {
+        return {
+            getComment: this.getComment
         }
     },
     methods: {
