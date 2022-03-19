@@ -21,7 +21,7 @@ window.Vue = require('vue').default;
 Vue.component('comment-component', require('./components/CommentComponent.vue').default);
 Vue.component('new-comment-component', require('./components/NewCommentComponent.vue').default);
 Vue.component('reply-comment-component', require('./components/ReplyCommentComponent.vue').default);
-Vue.component('nested-comment-component', require('./components/NestedCommentComponent').default);
+Vue.component('nested-comment-component', require('./components/NestedCommentComponent.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
