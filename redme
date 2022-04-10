@@ -1,0 +1,5 @@
+#variables 
+$PROJECT_REPO - for client project 
+$PROJECT_TYPE - according to the ddev
+
+gitpod.io/#PROJECT_REPO=https%3A%2F%2Fgithub.com%2Fibrah3m%2Flaravel-vue-test-project.git,PROJECT_TYPE=laravel/https://github.com/ibrah3m/IQdevs
