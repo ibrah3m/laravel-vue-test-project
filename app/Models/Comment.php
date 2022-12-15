@@ -10,7 +10,7 @@ class Comment extends Model
     use HasFactory;
 
     protected $fillable = ['name','comment_text','parent_id'];
-    public function comment_replys()
+    public function comment_replies()
     {
 
         return $this->hasMany(Comment::class, 'parent_id');
@@ -19,7 +19,9 @@ class Comment extends Model
 
     }
 
-
+    public function withRecursive(int $depth, string $relationship): this {
+        return $this->with(implode('.', array_fill(0, $depth, $relationship)));
+     }
 }
 //$method = '->comment_replays[0]';
 //$array='$full[]=$query';

@@ -19,7 +19,7 @@ class CommentsController extends Controller
     public function show()
     {
         return response()->json([
-            'comments' => Comment::with('comment_replys.comment_replys.comment_replys')->where('parent_id',0)->latest()->get()
+            'comments' => Comment::withRecursive(3,'comment_replies')->where('parent_id',0)->latest()->get()
         ], Response::HTTP_OK);
 
     }
