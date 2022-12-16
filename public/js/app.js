@@ -5302,6 +5302,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -5540,7 +5541,7 @@ window.Vue = (__webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js
 Vue.component('comment-component', (__webpack_require__(/*! ./components/CommentComponent.vue */ "./resources/js/components/CommentComponent.vue")["default"]));
 Vue.component('new-comment-component', (__webpack_require__(/*! ./components/NewCommentComponent.vue */ "./resources/js/components/NewCommentComponent.vue")["default"]));
 Vue.component('reply-comment-component', (__webpack_require__(/*! ./components/ReplyCommentComponent.vue */ "./resources/js/components/ReplyCommentComponent.vue")["default"]));
-Vue.component('nested-comment-component', (__webpack_require__(/*! ./components/NestedCommentComponent */ "./resources/js/components/NestedCommentComponent.vue")["default"]));
+Vue.component('nested-comment-component', (__webpack_require__(/*! ./components/NestedCommentComponent.vue */ "./resources/js/components/NestedCommentComponent.vue")["default"]));
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -28400,7 +28401,7 @@ var render = function () {
                 _vm._v(" "),
                 _c("br"),
                 _vm._v(" "),
-                _vm._l(comment.comment_replys, function (reply) {
+                _vm._l(comment.comment_replies, function (reply) {
                   return _c(
                     "div",
                     { key: reply.id },
@@ -28530,7 +28531,7 @@ var render = function () {
         ]),
       ]),
       _vm._v(" "),
-      _vm._l(_vm.reply.comment_replys, function (nested) {
+      _vm._l(_vm.reply.comment_replies, function (nested) {
         return _vm.nested_level <= 3
           ? _c(
               "div",

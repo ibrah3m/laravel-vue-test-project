@@ -19,8 +19,8 @@ class Comment extends Model
 
     }
 
-    public function withRecursive(int $depth, string $relationship): this {
-        return $this->with(implode('.', array_fill(0, $depth, $relationship)));
+    public function withRecursive(int $depth, string $relationship)   {
+        return self::with(implode('.', array_fill(0, $depth, $relationship)));
      }
 }
 //$method = '->comment_replays[0]';

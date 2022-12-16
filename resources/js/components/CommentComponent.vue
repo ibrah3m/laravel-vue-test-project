@@ -3,6 +3,7 @@
 
 
         <div v-for="(comment, index ) in comments" :key="comment.id">
+            
             <div class="card">
                 <div class="card-body">
 
@@ -19,8 +20,8 @@
                         <a href="#!" class="float-right m-2 card-link"><span class="small" @click="onReply">reply</span></a>
                     </reply-comment-component>
                     <br>
-                    <div v-for="reply in comment.comment_replys" :key="reply.id">
-
+                    <div v-for="reply in comment.comment_replies" :key="reply.id">
+                        
                         <nested-comment-component :nested_level="1" :reply="reply">
 
                         </nested-comment-component>

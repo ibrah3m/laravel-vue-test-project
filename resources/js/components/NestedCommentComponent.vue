@@ -26,7 +26,7 @@
 
         </div>
 
-        <div class="pl-4" v-if="nested_level <= 3" v-for="nested in reply.comment_replys" :key="nested.id">
+        <div class="pl-4" v-if="nested_level <= 3" v-for="nested in reply.comment_replies" :key="nested.id">
 
             <nested-comment-component :nested_level="nested_level + 1" :reply="nested"></nested-comment-component>
             <br>
