@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
+use Illuminate\Database\Eloquent\Builder;
 class Comment extends Model
 {
     use HasFactory;
@@ -19,7 +19,7 @@ class Comment extends Model
 
     }
 
-    public function withRecursive(int $depth, string $relationship)   {
+    public function withRecursive(int $depth, string $relationship): Builder   {
         return self::with(implode('.', array_fill(0, $depth, $relationship)));
      }
 }
