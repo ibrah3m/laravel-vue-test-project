@@ -66,7 +66,9 @@ Route::prefix('Comments')->group(function () {
     {
     //in this part of the code, we control the query responsible to  get the comment and his replies just until the 3rd layer of replies using 'with' method
     
-    'comments' => Comment::with('comment_replys.comment_replys.comment_replys').......
+    'comments' => Comment::withRecursive(3,'comment_replies')
+    ->where('parent_id',0)
+    ->latest()->get()
     
     .......
     }
@@ -84,7 +86,7 @@ Route::prefix('Comments')->group(function () {
 
 ```php
 //this method made to manage the relationships in the model between the comment and his replies
-   public function comment_replys()
+   public function comment_replies()
     {
     .......
     }
@@ -97,7 +99,7 @@ Route::prefix('Comments')->group(function () {
 
 1.CommentComponent
 
-```vue
+```js
 //this is the parent component of  all other comopnents, this component responsible to get the comments and the template of comment box
 
 <template>
@@ -113,7 +115,7 @@ Route::prefix('Comments')->group(function () {
         </reply-comment-component>
 
         //here  we attach the replies(nested comments) for the comment
-        <div v-for="reply in comment.comment_replys" :key="reply.id">
+        <div v-for="reply in comment.comment_replies" :key="reply.id">
             <nested-comment-component :nested_level="1" :reply="reply">
             </nested-comment-component>
         </div>
@@ -151,7 +153,7 @@ export default {
 
   ```
 2.NewCommentComponent
-```vue
+```js
 <template>
     <div  style="background-color: #626262;">
         <form @submit.prevent="sendComment()" id="CommentForm">
@@ -178,7 +180,7 @@ export default {
 </script>
 ```
 4. ReplyCommentComponent
-```vue
+```js
 <template>
     <div>
         <slot :on-reply="onReply"></slot>
@@ -223,13 +225,13 @@ export default {
 
 ```
 4.NestedCommentComponent
-```vue
+```js
 //this component responsible to print all nested comments until third level 
 <template>
     <div>
         ..........
         
-        <div class="pl-4" v-if="nested_level <= 3" v-for="nested in reply.comment_replys" :key="nested.id">
+        <div class="pl-4" v-if="nested_level <= 3" v-for="nested in reply.comment_replies" :key="nested.id">
             <nested-comment-component :nested_level="nested_level + 1" :reply="nested"></nested-comment-component>
             <br>
 
